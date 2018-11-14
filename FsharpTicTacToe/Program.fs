@@ -1,8 +1,15 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open System
+﻿open System
+open Game
+open Board
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+    Game.runMenu
+    let board = Board.createBoard
+    let i = 0
+    while (i < 9) do
+        Game.takeHumanTurn board
+        Game.takeComputerTurn board
+        i + 1
+    Console.ReadKey() |> ignore
+    0 
