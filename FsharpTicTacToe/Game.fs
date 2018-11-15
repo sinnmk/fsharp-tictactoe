@@ -7,7 +7,7 @@ open System
         board
 
     let switchMarker marker = 
-        if marker = "X" then
+        if marker = "X" then 
             let m = "O"
             m
         else 
@@ -51,15 +51,11 @@ open System
         else 
             false
 
-    let runGame board= 
-        takeHumanTurn board
-        takeComputerTurn board
-
     let runMenu =
         ConsoleUi.displayMenu
         let choice = ConsoleUi.getUserMenuChoice
         match choice with  
-        |"1" -> runGame 
+        |"1" -> "runGame" 
     
 
 

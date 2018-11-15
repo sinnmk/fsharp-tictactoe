@@ -1,6 +1,6 @@
 ﻿module Board
     type cells = A1 | A2 | A3 | B1 | B2 | B3 | C1 | C2 | C3
-    type markers = X | O | Empty
+    type markers = X = 1 | O = 2 | Empty = 0
 
     let createBoard =
         let board = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|]
@@ -42,3 +42,4 @@
 
     let checkForWin (board: array<string>, marker: string): bool =
         let winCombos = [|(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6); (1, 4, 7); (2, 5, 8); (0, 4, 8); (2, 4, 6) |]
+        true
