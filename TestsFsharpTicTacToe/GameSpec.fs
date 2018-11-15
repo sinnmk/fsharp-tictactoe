@@ -23,4 +23,3 @@ let ``SwitchMarker_CallsSwitchMarkerWithO_ReturnsXMarker`` () =
     let marker = "O"
     let actual = Game.switchMarker marker
     Assert.Equal(expected, actual)
-
