@@ -1,50 +1,47 @@
-﻿module Game
-open ConsoleUi
-open Board
-open System
+﻿module Game 
 
-type Game() =
-
-    static member runMenu =
+    let runMenu =
         let menu = ConsoleUi.displayMenu
         menu
 
         let choice = ConsoleUi.getUserMenuChoice
 
         match choice with  
-        |1 -> printfn "runGame"
-        |2 -> printfn "displayRules"
-        |3 -> printfn "quit"
+        |"1" -> printfn "runGame"
+        |"2" -> printfn "displayRules"
+        |"3" -> printfn "quit"
 
-    static member getMove = 
+    let getMove = 
         let move =  ConsoleUi.getMoveChoice 
         move 
 
-    static member getComputerMove = 
-        let moveOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        let randomMove = 
-            let random = Random()
-            fun () -> moveOptions.Item (random.Next(moveOptions.Length - 1))
-        randomMove 
-
-    
-    static member makeMove (board, move, marker)= 
-        let action = Board.modifyBoard (board, move, marker)
+    let makeMove (board) move marker= 
+        let action = Board.modifyBoard (board) move marker
         action
 
-    static member takeHumanTurn board = 
-        ConsoleUi.displayMovePrompt
-        let move = Game.getMove |> int
-        Board.isAvailablePosition (move, board) 
-        let marker = "X" 
-        Game.makeMove (board, move, marker)
+    let switchMarker marker = 
+        if marker = "X" then
+            let m = "O"
+            m
+        else 
+            let m = "X"
+            m
+
+    let takeHumanTurn board = 
+        let move = getMove |> int
+        Board.isAvailablePosition move (board) |> ignore 
+        let marker = "X"
+        let m = switchMarker marker 
+        makeMove (board) move m |> ignore
         Board.printBoard board
 
-    static member takeComputerTurn board =  
-        let move = Game.getComputerMove 
+    let takeComputerTurn board =  
         let marker = "O"
-        Game.makeMove (board, 2, marker)
+        let m = switchMarker marker
+        makeMove (board) 2 m |> ignore
         Board.printBoard board
+
+    
 
 
 

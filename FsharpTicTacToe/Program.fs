@@ -1,15 +1,12 @@
-﻿open System
-open Game
-open Board
+﻿module Program
 
+open System
 [<EntryPoint>]
-let main argv =
+
+let main args =
     Game.runMenu
+    ConsoleUi.getMoveChoice |> ignore
     let board = Board.createBoard
-    let i = 0
-    while (i < 9) do
-        Game.takeHumanTurn board
-        Game.takeComputerTurn board
-        i + 1
+    board |> ignore
     Console.ReadKey() |> ignore
     0 

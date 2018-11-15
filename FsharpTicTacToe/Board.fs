@@ -1,12 +1,10 @@
 ﻿module Board
 
-type Board() = 
-
-    static member createBoard =
+    let createBoard =
         let board = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|]
         board
 
-    static member printBoard board = 
+    let printBoard board = 
         let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
         board 
         |> Seq.chunkBySize 3
@@ -15,16 +13,31 @@ type Board() =
         |> join ".===.===.===.\n"
         |> printfn "%s"
 
-    static member modifyBoard (board: string array, move: int, marker: string): array<string> = 
+    let modifyBoard (board: array<string>) move marker: array<string> = 
         board.[move-1] <- marker 
         board
 
-    static member isAvailablePosition (move: int, board: array<string>): bool= 
+    let isAvailablePosition move (board: array<string>): bool= 
         match board.[move-1] with
         |" " -> true
         |"X" -> false 
         |"O" -> false
 
-    static member checkForWin (board: array<string>, marker: string): bool =
+    let isBoardTerminal (board: array<string>) = 
+        let boardToCheck = board
+        if boardToCheck.[0] = " " 
+            || boardToCheck.[1] = " "              
+            || boardToCheck.[2] = " "  
+            || boardToCheck.[3] = " "  
+            || boardToCheck.[4] = " "  
+            || boardToCheck.[5] = " "  
+            || boardToCheck.[6] = " "  
+            || boardToCheck.[7] = " "  
+            || boardToCheck.[8] = " " then  
+            false 
+        else 
+            true 
+
+    let checkForWin (board: array<string>, marker: string): bool =
         let winCombos = [|(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6); (1, 4, 7); (2, 5, 8); (0, 4, 8); (2, 4, 6) |]
         true
