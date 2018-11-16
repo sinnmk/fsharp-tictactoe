@@ -9,7 +9,6 @@
   <ItemGroup>
     <Compile Include="ValidationSpec.fs" />
     <Compile Include="ConsoleUiSpec.fs" />
-    <Compile Include="PlayerSpec.fs" />
     <Compile Include="MinimaxSpec.fs" />
     <Compile Include="GameSpec.fs" />
     <Compile Include="BoardSpec.fs" />

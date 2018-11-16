@@ -1,9 +1,26 @@
 ﻿module Board
-    type cells = A1 | A2 | A3 | B1 | B2 | B3 | C1 | C2 | C3
-    type markers = X = 1 | O = 2 | Empty = 0
+
+    type Board() =
+        let mutable boardState = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|] 
+        member x.BoardState
+            with get() = boardState
+            and set(b) = boardState <- b
+
+    type Marker() = 
+        let mutable marker = null
+        member x.Marker
+            with get() = marker 
+            and set(mark) = marker <- mark
+
+    type Move() = 
+        let mutable move = null
+        member x.Move
+            with get() = move
+            and set(m) = move <- m
 
     let createBoard =
-        let board = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|]
+        let state = Board()
+        let board = state.BoardState 
         board
 
     let printBoard board = 
@@ -15,18 +32,21 @@
         |> join ".===.===.===.\n"
         |> printfn "%s"
 
-    let modifyBoard (board: array<string>) move marker: array<string> = 
+    let modifyBoard move marker = 
+        let board = Board().BoardState
         board.[move-1] <- marker 
         board
 
-    let isAvailablePosition move (board: array<string>): bool= 
+    let isAvailablePosition move: bool= 
+        let board = Board().BoardState
         match board.[move-1] with
         |" " -> true
         |"X" -> false 
         |"O" -> false
 
-    let isBoardTerminal (board: array<string>) = 
-        let boardToCheck = board
+    let isBoardTerminal = 
+        let state = Board()
+        let boardToCheck = state.BoardState
         if boardToCheck.[0] = " " 
             || boardToCheck.[1] = " "              
             || boardToCheck.[2] = " "  
@@ -40,6 +60,6 @@
         else 
             true 
 
-    let checkForWin (board: array<string>, marker: string): bool =
+    let checkForWin (marker: string): bool =
         let winCombos = [|(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6); (1, 4, 7); (2, 5, 8); (0, 4, 8); (2, 4, 6) |]
         true

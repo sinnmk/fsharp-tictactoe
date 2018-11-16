@@ -9,8 +9,10 @@
             let input  = System.Console.ReadLine()
             let validateNum = Validation.validateNumIsNum input
             if validateNum = Validation.Ok then 
-                input
-            else "error!"
+                let validNumber = input
+                validNumber 
+            else   
+                "error!"
 
         let getMoveChoice = 
             printfn "Please enter your move (1-9): "

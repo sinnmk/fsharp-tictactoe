@@ -13,48 +13,50 @@ let ``CreateBoard_ReturnsAnEmptyArrayOfEmptyStrings`` () =
 let ``ModifyBoard_ModifiesBoardAtMoveIndex_ReturnsModifiedBoard`` () =
     let expected = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]  
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|] 
-    let actual = Board.modifyBoard (board) 1 "X" 
+    let actual = Board.modifyBoard 1 "X" 
     Assert.Equal<Collections.Generic.ICollection<string>>(expected, actual)
 
 [<Fact>]
 let ``IsAvailablePositionOpen_ChecksIfPositionIsOpen_ReturnsTrueIfOpen`` () =
     let expected = true
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let actual = Board.isAvailablePosition 1 (board)
+    let actual = Board.isAvailablePosition 1 
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``IsAvailablePositionOpen_ChecksIfPositionIsOpen_ReturnsFalseIfNot`` () =
     let expected = false 
     let board = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let actual = Board.isAvailablePosition 1 (board)
+    let actual = Board.isAvailablePosition 1 
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``CheckForWin_ChecksIfGameIsWon_ReturnsTrueIfWon`` () =
     let expected = true 
     let board = [|"X"; "X"; "X"; " "; " "; " "; "O"; "O"; " "|]
-    let actual = Board.checkForWin (board, "X")
+    let actual = Board.checkForWin "X"
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``CheckForWin_ChecksIfGameIsLost_ReturnsFalseIfNot`` () =
-    let expected = true 
+    let expected = false 
     let board = [|"X"; "X"; " "; " "; " "; " "; "O"; "O"; " "|]
-    let actual = Board.checkForWin (board, "O")
+    let actual = Board.checkForWin "O"
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``IsBoardTerminal_ChecksIfBoardIsCompleted_ReturnsTrueIfCompleted`` () =
     let expected = true
     let board = [|"X"; "X"; "X"; "O"; "X"; "O"; "O"; "O"; "X"|]
-    let actual = Board.isBoardTerminal (board)
+    let actual = Board.isBoardTerminal 
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``IsBoardTerminal_ChecksIfBoardIsCompleted_ReturnsFalseIfCompleted`` () =
     let expected = false
     let board =  [|"X"; "X"; " "; " "; " "; " "; "O"; "O"; " "|]
-    let actual = Board.isBoardTerminal (board)
+    let actual = Board.isBoardTerminal
     Assert.Equal(expected, actual)
+
+
 
