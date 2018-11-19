@@ -8,37 +8,44 @@ open ConsoleUi
 
 let main args =
     
-    let mutable board = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|] 
-
+    let mutable board = initializeBoard 
     let mutable i = 0
 
-    displayMenu
+    gameMenu |> ignore
 
     while (isBoardTerminal board = false) do 
-        printBoard board
-        let mutable marker = "X"
+        printfn "Please enter your move (1-9)"
         let mutable move =  Console.ReadLine() |> int 
+        let mutable marker = "X"  
+
         if (isAvailablePosition (board) move = true) then
             board.[move-1] <- marker
-            if (checkForWin board marker = true) then
-                printfn("Winner!")
         else 
             printfn("Error, not correct input")
+
+        if(checkForWin (board) marker = true) then  
+            printfn"Winner"
+
         printBoard board
         i <-i + 1
 
-        let mutable marker = "O"
+        System.Threading.Thread.Sleep(1000)
+
+        printfn "Please enter your move (1-9)"
         let mutable move =  Console.ReadLine() |> int 
-        board.[move-1] <- marker
+        let mutable marker = "O" 
+
         if (isAvailablePosition (board) move = true) then
             board.[move-1] <- marker
-            if (checkForWin board marker = true) then
-                printfn("winner!")
         else 
             printfn("Error, not correct input")
+
+        if(checkForWin (board) marker = true) then  
+            printfn"Winner"
+
         printBoard board
         i <-i + 1
-    
+
 
     Console.ReadKey() |> ignore
     0 

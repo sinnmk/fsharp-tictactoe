@@ -1,21 +1,19 @@
 ﻿module Board
 
-open System
+    //let shuffleNumber (num: Random) xs = xs |> Seq.sortBy (fun _ -> num.Next())
+
+    //let getComputerMove: int = 
+    //    let mutable move = [1..9] |> shuffleNumber (Random ()) |> Seq.head
+    //    move
 
     let initializeBoard = 
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
         board
 
-    let shuffleNumber (num: Random) xs = xs |> Seq.sortBy (fun _ -> num.Next())
-
-    let getComputerMove: int = 
-        let mutable move = [1..9] |> shuffleNumber (Random ()) |> Seq.head
-        move
-
     let modifyBoard (board: array<string>) move marker: array<string> = 
-        let mutable board = board 
-        board.[move-1] <- marker 
-        board
+         let mutable board = board 
+         board.[move-1] <- marker 
+         board
 
     let isAvailablePosition (board: array<string>)move: bool= 
         let mutable b = board
@@ -37,7 +35,8 @@ open System
         i <- i + 1
         if count = board.Length then
             true
-        else false
+        else 
+            false
 
     let checkForWin (board: array<string>)  (marker: string): bool=
         let mutable result = false
