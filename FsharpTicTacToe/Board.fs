@@ -11,13 +11,11 @@
         board
 
     let modifyBoard (board: array<string>) move marker: array<string> = 
-         let mutable board = board 
          board.[move-1] <- marker 
          board
 
     let isAvailablePosition (board: array<string>)move: bool= 
-        let mutable b = board
-        match b.[move-1] with
+        match board.[move-1] with
         |null -> true  
         |" " -> true
         |"X" -> false 
@@ -68,10 +66,9 @@
         else
             result
 
-    let printBoard board  = 
-        let mutable b = board
+    let printBoard board = 
         let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
-        b 
+        board 
         |> Seq.chunkBySize 3
         |> Seq.map (Seq.map (sprintf " %s ") >> join "|")
         |> Seq.map (fun s -> s + "\n")
