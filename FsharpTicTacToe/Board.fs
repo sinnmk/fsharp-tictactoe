@@ -1,65 +1,80 @@
 ﻿module Board
 
-    type Board() =
-        let mutable boardState = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|] 
-        member x.BoardState
-            with get() = boardState
-            and set(b) = boardState <- b
+open System
 
-    type Marker() = 
-        let mutable marker = null
-        member x.Marker
-            with get() = marker 
-            and set(mark) = marker <- mark
-
-    type Move() = 
-        let mutable move = null
-        member x.Move
-            with get() = move
-            and set(m) = move <- m
-
-    let createBoard =
-        let state = Board()
-        let board = state.BoardState 
+    let initializeBoard = 
+        let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
         board
 
-    let printBoard board = 
-        let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
-        board 
-        |> Seq.chunkBySize 3
-        |> Seq.map (Seq.map (sprintf " %s ") >> join "|")
-        |> Seq.map (fun s -> s + "\n")
-        |> join ".===.===.===.\n"
-        |> printfn "%s"
+    let shuffleNumber (num: Random) xs = xs |> Seq.sortBy (fun _ -> num.Next())
 
-    let modifyBoard move marker = 
-        let board = Board().BoardState
+    let getComputerMove: int = 
+        let mutable move = [1..9] |> shuffleNumber (Random ()) |> Seq.head
+        move
+
+    let modifyBoard (board: array<string>) move marker: array<string> = 
+        let mutable board = board 
         board.[move-1] <- marker 
         board
 
-    let isAvailablePosition move: bool= 
-        let board = Board().BoardState
-        match board.[move-1] with
+    let isAvailablePosition (board: array<string>)move: bool= 
+        let mutable b = board
+        match b.[move-1] with
+        |null -> true  
         |" " -> true
         |"X" -> false 
         |"O" -> false
 
-    let isBoardTerminal = 
-        let state = Board()
-        let boardToCheck = state.BoardState
-        if boardToCheck.[0] = " " 
-            || boardToCheck.[1] = " "              
-            || boardToCheck.[2] = " "  
-            || boardToCheck.[3] = " "  
-            || boardToCheck.[4] = " "  
-            || boardToCheck.[5] = " "  
-            || boardToCheck.[6] = " "  
-            || boardToCheck.[7] = " "  
-            || boardToCheck.[8] = " " then  
-            false 
-        else 
-            true 
+    let isBoardTerminal (board: array<string>)= 
+        let mutable boardToCheck = board
+        let mutable i = 0
+        let mutable count = 0
+        for i = 0 to 8 do
+            if boardToCheck.[i] = " " then  
+                count <- count 
+            else 
+                count <- count + 1 
+        i <- i + 1
+        if count = board.Length then
+            true
+        else false
 
-    let checkForWin (marker: string): bool =
-        let winCombos = [|(0, 1, 2); (3, 4, 5); (6, 7, 8); (0, 3, 6); (1, 4, 7); (2, 5, 8); (0, 4, 8); (2, 4, 6) |]
-        true
+    let checkForWin (board: array<string>)  (marker: string): bool=
+        let mutable result = false
+
+        if board.[0] = marker && board.[1] = marker && board.[2] = marker then
+            result <- true
+            result
+        else if board.[3] = marker && board.[4] = marker && board.[5] = marker then
+            result <- true
+            result
+        else if board.[6] = marker && board.[7] = marker && board.[8] = marker then
+            result <- true
+            result
+        else if board.[0] = marker && board.[3] = marker && board.[6] = marker then
+            result <- true
+            result
+        else if board.[1] = marker && board.[4] = marker && board.[7] = marker then
+            result <- true
+            result
+        else if board.[2] = marker && board.[5] = marker && board.[8] = marker then
+            result <- true
+            result
+        else if board.[0] = marker && board.[4] = marker && board.[8] = marker then
+            result <- true
+            result
+        else if board.[2] = marker && board.[4] = marker && board.[6] = marker then
+            result <- true
+            result
+        else
+            result
+
+    let printBoard board  = 
+        let mutable b = board
+        let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
+        b 
+        |> Seq.chunkBySize 3
+        |> Seq.map (Seq.map (sprintf " %s ") >> join "|")
+        |> Seq.map (fun s -> s + "\n")
+        |> join "+===+===+===+\n"
+        |> printfn "%s"

@@ -7,10 +7,8 @@
 
   <ItemGroup>
     <Compile Include="Validation.fs" />
-    <Compile Include="ConsoleUi.fs" />
-    <Compile Include="Minimax.fs" />
     <Compile Include="Board.fs" />
-    <Compile Include="Game.fs" />
+    <Compile Include="ConsoleUi.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

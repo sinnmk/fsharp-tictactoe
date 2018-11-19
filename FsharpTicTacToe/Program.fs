@@ -2,30 +2,43 @@
 
 open System
 open Board
-open System.Threading
+open ConsoleUi
 
 [<EntryPoint>]
 
 let main args =
-    Game.runMenu |> ignore
-    createBoard |> ignore
+    
+    let mutable board = [|" ";" ";" ";" ";" ";" ";" ";" ";" "|] 
 
-    let mutable humanMove = ConsoleUi.getMoveChoice |> int
-    if (isAvailablePosition humanMove) = true then
-        let board = Board.modifyBoard humanMove "X" 
-        Board.isBoardTerminal |> ignore 
-        printBoard board 
-    else 
-        printfn "There was an error!"
+    let mutable i = 0
 
-    let mutable computerMove = Game.getComputerMove
-    if (isAvailablePosition computerMove) = true then 
-        let board = Board.modifyBoard computerMove "O"
-        Thread.Sleep(1000)
-        Board.isBoardTerminal |> ignore 
+    displayMenu
+
+    while (isBoardTerminal board = false) do 
         printBoard board
-    else 
-        printfn "There was an error!"
+        let mutable marker = "X"
+        let mutable move =  Console.ReadLine() |> int 
+        if (isAvailablePosition (board) move = true) then
+            board.[move-1] <- marker
+            if (checkForWin board marker = true) then
+                printfn("Winner!")
+        else 
+            printfn("Error, not correct input")
+        printBoard board
+        i <-i + 1
+
+        let mutable marker = "O"
+        let mutable move =  Console.ReadLine() |> int 
+        board.[move-1] <- marker
+        if (isAvailablePosition (board) move = true) then
+            board.[move-1] <- marker
+            if (checkForWin board marker = true) then
+                printfn("winner!")
+        else 
+            printfn("Error, not correct input")
+        printBoard board
+        i <-i + 1
+    
 
     Console.ReadKey() |> ignore
     0 
