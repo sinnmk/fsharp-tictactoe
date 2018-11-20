@@ -1,5 +1,6 @@
 ﻿module Board
 
+    type a = int -> int -> int
 
     let initializeBoard = 
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
@@ -30,6 +31,23 @@
             true
         else 
             false
+
+    //let checkWin (board: array<string>) marker: bool = 
+       // let mutable result = false
+       // let winCombos = [|[0, 1, 2];[3, 4, 5];[6, 7, 8];
+       //                   [0, 3, 6];[1, 4, 7];[2, 5, 8];
+       //                   [0, 4, 8];[2, 4, 6]|]
+
+       // for combo in winCombos do 
+       //     let mutable count = 0
+       //     let mutable i = 0
+       //     for num in combo do
+       //         if board.[num] = marker then
+       //             count <- count + 1
+       //     if count = 3 then     
+       //         result <- true
+       //     else result <- false
+       // result
 
     let checkForWin (board: array<string>)  (marker: string): bool=
         let mutable result = false

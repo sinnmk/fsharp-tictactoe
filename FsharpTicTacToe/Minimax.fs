@@ -11,7 +11,6 @@ let getListOfMoves (board: array<string>) =
             listOfMoves |> ignore
     listOfMoves
 
-
 let shuffleNumber (num: Random) xs = xs |> Seq.sortBy (fun _ -> num.Next())
 
 let getComputerMove: int = 
