@@ -1,10 +1,5 @@
 ﻿module Board
 
-    //let shuffleNumber (num: Random) xs = xs |> Seq.sortBy (fun _ -> num.Next())
-
-    //let getComputerMove: int = 
-    //    let mutable move = [1..9] |> shuffleNumber (Random ()) |> Seq.head
-    //    move
 
     let initializeBoard = 
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]

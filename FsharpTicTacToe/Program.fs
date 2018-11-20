@@ -14,32 +14,33 @@ let main args =
     gameMenu |> ignore
 
     let mutable gameOver = isBoardTerminal board
+
     while (gameOver = false) do 
         printfn "Please enter your move (1-9)"
         let mutable move =  Console.ReadLine() |> int 
         let mutable marker =  "X" 
 
         if (isAvailablePosition (board) move = true) then
-            board.[move-1] <- marker
+            modifyBoard (board) move marker|> ignore
         else 
-            printfn("Error, not correct input")
+            board |> ignore 
         if(checkForWin (board) marker = true) then  
-            printfn"Winner"
+            printfn "Player One wins!"
+            System.Threading.Thread.Sleep(2000)
             Environment.Exit(-1)
         printBoard board
         i <-i + 1
 
-        System.Threading.Thread.Sleep(1000)
-
         printfn "Please enter your move (1-9)"
-        let mutable move =  Console.ReadLine() |> int 
+        let mutable move =  Console.ReadLine() |> int   
         let mutable marker = "O" 
         if (isAvailablePosition (board) move = true) then
-            board.[move-1] <- marker
+            modifyBoard(board) move marker |> ignore
         else 
-            printfn("Error, not correct input")
+            board |> ignore 
         if(checkForWin (board) marker = true) then  
-            printfn"Winner"
+            printfn "Player two wins!"
+            System.Threading.Thread.Sleep(2000)
             Environment.Exit(-1)
         printBoard board
         i <-i + 1
