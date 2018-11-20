@@ -8,41 +8,43 @@ open ConsoleUi
 
 let main args =
     
-    let mutable board = initializeBoard 
+    let mutable board = InitializeBoard 
     let mutable i = 0
 
-    gameMenu |> ignore
+    GameMenu |> ignore
 
-    let mutable gameOver = isBoardTerminal board
+    let mutable gameOver = IsBoardTerminal board
 
     while (gameOver = false) do 
         printfn "Please enter your move (1-9)"
         let mutable move =  Console.ReadLine() |> int 
-        let mutable marker =  "X" 
+        let mutable marker = "X" 
 
-        if (isAvailablePosition (board) move = true) then
-            modifyBoard (board) move marker|> ignore
+        if (IsAvailablePosition (board) move = true) then
+            ModifyBoard (board) move marker|> ignore
         else 
             board |> ignore 
-        if(checkForWin (board) marker = true) then  
+        if(CheckForWin (board) marker = true) then  
+            PrintBoard board
             printfn "Player One wins!"
             System.Threading.Thread.Sleep(2000)
             Environment.Exit(-1)
-        printBoard board
+        PrintBoard board
         i <-i + 1
 
         printfn "Please enter your move (1-9)"
         let mutable move =  Console.ReadLine() |> int   
-        let mutable marker = "O" 
-        if (isAvailablePosition (board) move = true) then
-            modifyBoard(board) move marker |> ignore
+        let mutable marker = SetMarker marker 
+        if (IsAvailablePosition (board) move = true) then
+            ModifyBoard(board) move marker |> ignore
         else 
             board |> ignore 
-        if(checkForWin (board) marker = true) then  
+        if(CheckForWin (board) marker = true) then  
+            PrintBoard board
             printfn "Player two wins!"
             System.Threading.Thread.Sleep(2000)
             Environment.Exit(-1)
-        printBoard board
+        PrintBoard board
         i <-i + 1
 
     Console.ReadKey() |> ignore

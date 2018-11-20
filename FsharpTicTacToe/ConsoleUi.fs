@@ -5,16 +5,16 @@ open System
         |Ok
         |Invalid of string list
 
-    let gameMenu = 
+    let GameMenu = 
         printfn "Welcome to Tic Tac Toe!"  
         printfn "Press any key to Play Game"
         System.Console.ReadKey()
 
-    let validateInputIsThere (input:string) =
+    let ValidateInputIsThere (input:string) =
         if input = "" then Invalid ["Input cannot be empty. Please re-enter your input."] 
         else Ok
 
-    let validateNumIsNum (input: string) =
+    let ValidateNumIsNum (input: string) =
         match (System.Int32.TryParse(input)) with
         | (true, input) -> Ok 
         | (false, _) -> Invalid ["Error: Input is not a number. Please re-enter a valid number."]

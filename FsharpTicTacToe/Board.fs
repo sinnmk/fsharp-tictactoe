@@ -1,23 +1,27 @@
 ﻿module Board
 
-    type a = int -> int -> int
-
-    let initializeBoard = 
+    let InitializeBoard = 
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
         board
 
-    let modifyBoard (board: array<string>) move marker: array<string> = 
+    let SetMarker marker = 
+        let mutable m = marker
+        if m = "X" then
+            m <- "O"
+        m
+
+    let ModifyBoard (board: array<string>) move marker: array<string> = 
          board.[move-1] <- marker 
          board
 
-    let isAvailablePosition (board: array<string>)move: bool= 
+    let IsAvailablePosition (board: array<string>)move: bool = 
         match board.[move-1] with
         |null -> true  
         |" " -> true
         |"X" -> false 
         |"O" -> false
 
-    let isBoardTerminal (board: array<string>)= 
+    let IsBoardTerminal (board: array<string>)= 
         let mutable boardToCheck = board
         let mutable i = 0
         let mutable count = 0
@@ -49,7 +53,7 @@
        //     else result <- false
        // result
 
-    let checkForWin (board: array<string>)  (marker: string): bool=
+    let CheckForWin (board: array<string>)  (marker: string): bool=
         let mutable result = false
 
         if board.[0] = marker && board.[1] = marker && board.[2] = marker then
@@ -79,7 +83,7 @@
         else
             result
 
-    let printBoard board = 
+    let PrintBoard board = 
         let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
         board 
         |> Seq.chunkBySize 3
