@@ -1,5 +1,4 @@
 ﻿module ConsoleUi
-open System
 
     type ValidationResult = 
         |Ok
@@ -18,11 +17,3 @@ open System
         match (System.Int32.TryParse(input)) with
         | (true, input) -> Ok 
         | (false, _) -> Invalid ["Error: Input is not a number. Please re-enter a valid number."]
-
-   // let mutable validateNum = Validation.validateNumIsNum input
-   // if validateNum = Validation.Ok then
-   //     input |> int
-   // else Error |> int 
-
-
-

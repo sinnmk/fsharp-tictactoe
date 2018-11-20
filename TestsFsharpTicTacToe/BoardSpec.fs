@@ -6,21 +6,21 @@ open Xunit;
 [<Fact>]
 let ``CreateBoard_ReturnsAnEmptyArrayOfEmptyStrings`` () =
     let expected = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|] 
-    let actual = Board.initializeBoard
+    let actual = Board.InitializeBoard
     Assert.Equal<Collections.Generic.IEnumerable<string>>(expected, actual)
 
 [<Fact>]
 let ``ModifyBoard_ModifiesBoardAtMoveIndex_ReturnsModifiedBoard`` () =
     let expected = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]  
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|] 
-    let actual = Board.modifyBoard (board) 1 "X" 
+    let actual = Board.ModifyBoard (board) 1 "X" 
     Assert.Equal<Collections.Generic.ICollection<string>>(expected, actual)
 
 [<Fact>]
 let ``IsAvailablePositionOpen_ChecksIfPositionIsOpen_ReturnsTrueIfOpen`` () =
     let expected = true
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let actual = Board.isAvailablePosition (board)1 
+    let actual = Board.IsAvailablePosition (board)1 
     Assert.Equal(expected, actual)
 
 [<Fact>]
