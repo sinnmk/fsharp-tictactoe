@@ -27,7 +27,7 @@ let main args =
         if(CheckForWin (board) marker = true) then  
             PrintBoard board
             printfn "Player One wins!"
-            System.Threading.Thread.Sleep(2000)
+            System.Threading.Thread.Sleep(1000)
             Environment.Exit(-1)
         PrintBoard board
         i <-i + 1
@@ -42,7 +42,7 @@ let main args =
         if(CheckForWin (board) marker = true) then  
             PrintBoard board
             printfn "Player two wins!"
-            System.Threading.Thread.Sleep(2000)
+            System.Threading.Thread.Sleep(1000)
             Environment.Exit(-1)
         PrintBoard board
         i <-i + 1

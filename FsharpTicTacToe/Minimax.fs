@@ -1,6 +1,6 @@
 ﻿module Minimax
-open Board
 open System
+open Board
 
 let GetListOfMoves (board: array<string>) =
     let mutable listOfMoves = ResizeArray<int>() 
@@ -17,59 +17,61 @@ let GetComputerMove: int =
     let mutable move = [1..9] |> ShuffleNumber (Random ()) |> Seq.head
     move 
 
-let EvaluateScore (board) =
+let EvaluateScore (board): int =
     let mutable score = 0
     if CheckForWin(board) "X" then 
         score <- -100
     else if CheckForWin(board) "O" then  
         score <- 100
-    else
-        score <- score
     score
 
-let rec MinMax (board) maxPlayer marker = 
-    let mutable moves = GetListOfMoves (board)
-    let mutable value = 0
-
-    if (IsBoardTerminal (board) = true || CheckForWin (board) marker = true) then 
-        EvaluateScore (board) 
-    else 
-        if maxPlayer = "X" then 
-            value <- -100
-            for move in moves do 
-                ModifyBoard (board) move "X" |> ignore 
-                value <- max(value)(MinMax(board) maxPlayer marker)
-                ModifyBoard (board) move " " |> ignore 
-            value
-
-        else
-            value <- 100
-            for move in moves do 
-                ModifyBoard(board) move "O" |> ignore 
-                value <- min(value)(MinMax(board) maxPlayer marker)
-                ModifyBoard (board) move " " |> ignore 
-            value
-
-let BestMove (board) maxPlayer marker: int = 
-    let mutable value = 0
-    let mutable choice = 0 
+let rec MinMax (board) maxPlayer marker : int =
     let mutable moves = GetListOfMoves(board)
-    if maxPlayer = "X" then
-        for move in moves do 
-            ModifyBoard (board) move "X" |> ignore
-            value <- max(value)(MinMax(board) maxPlayer marker)
-            ModifyBoard (board) move " " |> ignore
-            if value > -100 then 
-                choice <- move
-            else choice <- choice
-        choice |> int
-    else 
-        for move in moves do
-            ModifyBoard (board) move "O" |> ignore
-            value <- min(value)(MinMax(board) maxPlayer marker)
-            ModifyBoard (board) move " " |> ignore
-            if value > 100 then 
-                choice <- move
-            else choice <- choice
-        choice |> int
+    let mutable v = 0 
+    let mutable b = board
 
+    if IsBoardTerminal board = true || CheckForWin board marker = true then 
+        EvaluateScore board 
+    else
+        if maxPlayer = "X" then
+            v <- -100
+            for move in moves do
+                b <- ModifyBoard board move marker
+                v <- max(v)(MinMax(b) maxPlayer marker) 
+                b <- ModifyBoard board move " "
+
+        if maxPlayer = "O" then 
+            v <- 100
+            for move in moves do
+                b <- ModifyBoard b move marker
+                v <- min(v)(MinMax(b) maxPlayer marker) 
+                b <- ModifyBoard board move " "
+        v
+
+let BestMove (board) maxPlayer marker : int =
+    let mutable maxP = maxPlayer
+    let mutable moves = GetListOfMoves(board)
+    let mutable bestMove = 0
+    let mutable b = board
+    let mutable v = 0
+    if moves.Count = 9 then
+        bestMove <- 1
+    else  
+        if maxPlayer = "X" then
+            for move in moves do
+                b <- ModifyBoard b move "X" 
+                v <- max(v)(MinMax(b) maxP marker) 
+                b <- ModifyBoard b move " " 
+                if v = 100 then 
+                    bestMove <- move
+            bestMove <- bestMove
+
+        else if maxPlayer = "O" then
+            for move in moves do
+                b <- ModifyBoard b move "O" 
+                v <- min(v)(MinMax(b) maxP marker) 
+                b <- ModifyBoard b move " " 
+                if v = -100 then 
+                    bestMove <- move
+            bestMove <- bestMove
+    bestMove

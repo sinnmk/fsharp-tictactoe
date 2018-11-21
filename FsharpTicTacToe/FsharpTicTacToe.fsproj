@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Validation.fs" />
     <Compile Include="Board.fs" />
     <Compile Include="Minimax.fs" />
     <Compile Include="ConsoleUi.fs" />
