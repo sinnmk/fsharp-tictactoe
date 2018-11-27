@@ -4,19 +4,11 @@
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
         board
 
-    let SetMarker marker = 
-        let mutable m = marker
-        if m = "X" then
-            m <- "O"
-        else 
-            m <- "X"
-        m
-
     let ModifyBoard (board: array<string>) move marker: array<string> = 
          board.[move-1] <- marker 
          board
 
-    let IsAvailablePosition (board: array<string>)move: bool = 
+    let IsAvailablePosition (board: array<string>) (move) : bool = 
         match board.[move-1] with
         |null -> true  
         |" " -> true
@@ -37,24 +29,7 @@
         else 
             false
 
-    //let checkWin (board: array<string>) marker: bool = 
-    //    let mutable result = false
-    //    let winCombos = [|[0, 1, 2];[3, 4, 5];[6, 7, 8];
-    //                      [0, 3, 6];[1, 4, 7];[2, 5, 8];
-    //                      [0, 4, 8];[2, 4, 6]|]
-
-    //    for combo in winCombos do 
-    //        let mutable count = 0
-    //        let mutable i = 0
-    //        for num in combo do
-    //            if board.[num] = marker then
-    //                count <- count + 1
-    //        if count = 3 then     
-    //            result <- true
-    //        else result <- false
-    //    result
-
-    let CheckForWin (board: array<string>)  (marker: string): bool=
+    let IsWin (board: array<string>)  (marker: string): bool=
         let mutable result = false
 
         if board.[0] = marker && board.[1] = marker && board.[2] = marker then
@@ -84,11 +59,3 @@
         else
             result
 
-    let PrintBoard board = 
-        let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
-        board 
-        |> Seq.chunkBySize 3
-        |> Seq.map (Seq.map (sprintf " %s ") >> join "|")
-        |> Seq.map (fun s -> s + "\n")
-        |> join "+===+===+===+\n"
-        |> printfn "%s"

@@ -1,7 +1,6 @@
 ﻿module MinimaxSpec
 open Xunit
 open System
-open Minimax
 
 [<Fact>]
 let ``EvaluateScore_ReturnMaxScore_WhenGameIsTerminalAndMaximizingPlayerWin``() = 
@@ -31,32 +30,14 @@ let ``GetListOfMoves_ReturnsAListOfAvailableMovesOfGame`` () =
     let actual = Minimax.GetListOfMoves (board)
     Assert.Equal<Collections.Generic.ICollection<int>>(expected, actual)
 
-[<Fact>]
-let ``BestMove_WithEmptyBoard_--------_ReturnBestMoveForMaxPlayer`` () = 
-    let board =  [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let expected = 1 
-    let maxPlayer = "X"
-    let marker = "X"
-    let actual = Minimax.BestMove(board) maxPlayer marker
-    Assert.Equal(expected, actual)
-
-[<Fact>]
-let ``BestMove_With1PositionTaken_X--------_ReturnsBestMoveForMinPlayer`` () = 
-    let board =  [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let expected = 2 
-    let maxPlayer = "O"
-    let marker = "O"
-    let actual = Minimax.BestMove(board) maxPlayer marker
-    Assert.Equal(expected, actual)
-
-[<Fact>]
-let ``MinMax_WithBoard__ReturnsBestMoveForMaxPlayer`` () =
-    let board = [|"O"; "O"; " "; " "; "X"; "X"; "O"; "X"; "X"|]
-    let expected = 4
-    let maxPlayer = "O"
-    let marker = "O"
-    let actual = Minimax.BestMove (board) maxPlayer marker
-    Assert.Equal(expected, actual)
+//[<Fact>]
+//let ``MinMax_WithBoard__ReturnsBestMoveForMaxPlayer`` () =
+//    let board = [|"O"; "O"; " "; " "; "X"; "X"; "O"; "X"; "X"|]
+//    let expected = 4
+//    let maxPlayer = "O"
+//    let marker = "O"
+//    let actual = Minimax.BestMove (board) maxPlayer marker
+//    Assert.Equal(expected, actual)
 
 //[<Fact>]
 //let ``MinMax_XO-X-O---_ReturnsBestMoveForMaxPlayer`` () = 
@@ -66,4 +47,3 @@ let ``MinMax_WithBoard__ReturnsBestMoveForMaxPlayer`` () =
 //    let marker = "X"
 //    let actual = Minimax.MinMax (board) maxPlayer marker
 //    Assert.Equal(expected, actual)
-
