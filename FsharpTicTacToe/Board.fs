@@ -29,6 +29,16 @@
         else 
             false
 
+
+
+
+
+
+
+
+
+
+
     let IsWin (board: array<string>)  (marker: string): bool=
         let mutable result = false
 

@@ -1,6 +1,13 @@
 ﻿module Minimax
 open Board
 
+let SwitchMaxPlayer maxPlayer = 
+    let mutable m = maxPlayer
+    if m = "X" then 
+        m <- "O" 
+    else
+        m <- "X" 
+
 let GetListOfMoves (board: array<string>) =
     let listOfMoves = ResizeArray<int>() 
     for i=0 to 8 do
@@ -18,39 +25,42 @@ let EvaluateScore (board): int =
         score <- 100
     score
 
-let rec DoMiniMax (board) depth maxPlayer marker =
+
+let rec MaximizeScore (board) depth maxPlayer marker = 
+    let mutable moves = GetListOfMoves(board)
+    let mutable v = 0 
+    let mutable b = board
+    let mutable mp = maxPlayer
+    let mutable d = depth 
+    v <- -100
+    for move in moves do
+        b <- ModifyBoard b move marker 
+        v <- max(v)(MaximizeScore(b) depth maxPlayer marker) 
+        mp <- "O" 
+        d <- d+1
+        b <- ModifyBoard b move " "
+    v
+
+let rec MinimizeScore (board) depth maxPlayer marker =
     let mutable moves = GetListOfMoves(board)
     let mutable v = 0 
     let mutable b = board
     let mutable mp = maxPlayer
     let mutable d = depth 
 
-    if IsBoardTerminal board = true || IsWin board marker = true then 
-        EvaluateScore board |> ignore 
-
-    if (maxPlayer = true) then
-        v <- -100
-        for move in moves do
-            b <- ModifyBoard b move marker 
-            v <- max(v)(DoMiniMax(b) depth maxPlayer marker) 
-            mp <- false
-            d <- d+1
-            b <- ModifyBoard b move " "
-
-    else 
-        v <- 100
-        for move in moves do
-            b <- ModifyBoard b move marker
-            v <- min(v)(DoMiniMax(b) depth maxPlayer marker) 
-            mp <- true 
-            d <- d+1
-            b <- ModifyBoard b move " "
+    v <- 100
+    for move in moves do
+        b <- ModifyBoard b move marker
+        v <- min(v)(MinimizeScore(b) depth maxPlayer marker) 
+        mp <- "X" 
+        d <- d+1
+        b <- ModifyBoard b move " "
     v
 
-let rec BestMove (board) depth maxPlayer marker: int = 
-    let mutable m = 0
-    let mutable v = DoMiniMax (board) depth maxPlayer marker
-    if v > -100 && maxPlayer then
-        m <- 1 
-    m
-            
+let MiniMax (board) depth maxPlayer marker = 
+    if IsBoardTerminal board = true || IsWin board marker = true then 
+        EvaluateScore board |> ignore 
+    if maxPlayer = "X" then
+        MaximizeScore (board) depth maxPlayer marker
+    else 
+        MinimizeScore (board) depth maxPlayer marker

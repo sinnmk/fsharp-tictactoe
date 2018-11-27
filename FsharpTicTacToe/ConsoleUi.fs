@@ -11,6 +11,8 @@ open System
         printfn "Press any key to Play..."
         System.Console.ReadKey()
 
+    let DrawGamePrompt () = printfn "The game is a draw..."
+
     let ValidateInputIsThere (input:string) =
         if input = "" then Invalid ["Input cannot be empty. Please re-enter your input."] 
         else Ok
