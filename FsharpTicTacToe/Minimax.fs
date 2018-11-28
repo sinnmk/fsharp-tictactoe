@@ -64,6 +64,10 @@ let rec MakeBestMove (board) depth marker =
     for move in GetListOfMoves(board) do
         board <- ModifyBoard board move marker
         value <- MiniMax(board) depth (SwitchMarker(marker))
-        if value = 100 then
-            bestMove <- move 
+        if marker = "X" then
+            if value = 100 then
+                bestMove <- move 
+        if marker = "O" then 
+            if value = 100 then
+                bestMove <- move 
     bestMove

@@ -40,7 +40,6 @@ let ComputerPlayerTurn() =
     MovePrompt ()
     marker <- "O" 
     let mutable computerMove = GenerateRandomMove (board)
-    //let mutable computerMove = MakeBestMove(board) 8 marker 
     if (IsAvailablePosition (board) computerMove = true) then
         ModifyBoard(board) computerMove marker |> ignore
     else 

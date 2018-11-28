@@ -35,7 +35,7 @@ let ``CheckForWinForPlayerX_ChecksIfGameIsWon_ReturnsTrueIfWon`` () =
     let expected = true 
     let board = [|"X"; "X"; "X"; " "; " "; " "; "O"; "O"; " "|]
     let marker = "X"
-    let actual = Board.IsWin (board) marker
+    let actual = Board.GameWon (board) marker
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -43,7 +43,7 @@ let ``CheckForWinForPlayerX_ChecksIfGameIsLost_ReturnsFalseIfNot`` () =
     let expected = false 
     let board = [|"X"; "X"; " "; " "; " "; " "; "O"; "O"; " "|]
     let marker = "X"
-    let actual = Board.IsWin (board) marker
+    let actual = Board.GameWon(board) marker
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -51,7 +51,7 @@ let ``CheckForWinForPlayerO_ChecksIfGameIsWon_ReturnsTrueIfWon`` () =
     let expected = true
     let board = [|"O"; "O"; "O"; " "; "X"; " "; "X"; "X"; " "|]
     let marker = "O"
-    let actual = Board.IsWin (board) marker
+    let actual = Board.GameWon (board) marker
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -59,7 +59,7 @@ let ``CheckForWinForPlayerO_ChecksIfGameIsWon_ReturnsFalseIfNotWon`` () =
     let expected = false 
     let board = [|"O"; "O"; " "; " "; "X"; " "; "X"; "X"; " "|]
     let marker = "O"
-    let actual = Board.IsWin (board) marker
+    let actual = Board.GameWon (board) marker
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -89,12 +89,3 @@ let ``CheckHorizontalWins_ChecksForHorizontalWin_ReturnsFalseWhenNotAWin`` () =
     let board =  [|" "; " "; "X"; " "; " "; " "; "X"; "O"; "O"|]
     let actual = Board.CheckHorizontalWins (board) "X" 
     Assert.Equal(expected, actual)
-
-//[<Fact>]
-//let ``CheckVerticalWins_ChecksForVerticalWin_ReturnsTrueWhenAWin`` () = 
-//    let expected = true
-//    let board =  [|"X"; "X"; "X"; " "; " "; " "; "O"; "O"; " "|]
-//    let actual = Board.CheckForVerticalWin (board) "X"
-//    Assert.Equal(expected, actual)
-
-    

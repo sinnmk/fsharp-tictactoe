@@ -11,10 +11,13 @@ open Minimax
 let main args =
     GameMenu |> ignore
     let mutable gameOver = IsBoardTerminal board
+    let mutable turnsPlayed = 0
     while (gameOver = false) do 
         HumanPlayerTurn()
+        turnsPlayed <- turnsPlayed + 1
         if turnsPlayed <= 8 then
             ComputerPlayerTurn()
+            turnsPlayed <- turnsPlayed + 1
         else 
             DrawGamePrompt()            
             ExitGame()

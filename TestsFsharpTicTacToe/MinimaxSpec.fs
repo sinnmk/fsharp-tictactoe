@@ -37,5 +37,9 @@ let ``MiniMax_ReturnBestValueOfMaximizingPlayer``() =
     let actual = Minimax.MiniMax (board) 7 "X"
     Assert.Equal(expected, actual)
 
-
-
+[<Fact>]
+let ``MakeBestMove_ReturnBestMoveOfMaxPlayer`` () =
+    let board = [|"X"; "X"; " "; " "; " "; "O"; "X"; "O"; "O"|]
+    let expected = 3
+    let actual = Minimax.MakeBestMove (board) 5 "X"
+    Assert.Equal(expected, actual)
