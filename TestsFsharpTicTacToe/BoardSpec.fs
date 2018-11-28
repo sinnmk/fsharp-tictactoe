@@ -76,7 +76,25 @@ let ``IsBoardTerminal_ChecksIfBoardIsCompleted_ReturnsFalseIfCompleted`` () =
     let actual = Board.IsBoardTerminal (board)
     Assert.Equal(expected, actual)
 
+[<Fact>]
+let ``CheckHorizontalWins_ChecksForHorizontalWin_ReturnsTrueWhenAWin`` () = 
+    let expected =true  
+    let board =  [|"X"; "X"; "X"; " "; " "; " "; "O"; "O"; " "|]
+    let actual = Board.CheckHorizontalWins (board) "X" 
+    Assert.Equal(expected, actual)
 
+[<Fact>]
+let ``CheckHorizontalWins_ChecksForHorizontalWin_ReturnsFalseWhenNotAWin`` () = 
+    let expected = false  
+    let board =  [|" "; " "; "X"; " "; " "; " "; "X"; "O"; "O"|]
+    let actual = Board.CheckHorizontalWins (board) "X" 
+    Assert.Equal(expected, actual)
 
+//[<Fact>]
+//let ``CheckVerticalWins_ChecksForVerticalWin_ReturnsTrueWhenAWin`` () = 
+//    let expected = true
+//    let board =  [|"X"; "X"; "X"; " "; " "; " "; "O"; "O"; " "|]
+//    let actual = Board.CheckForVerticalWin (board) "X"
+//    Assert.Equal(expected, actual)
 
-
+    

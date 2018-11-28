@@ -31,20 +31,11 @@ let ``GetListOfMoves_ReturnsAListOfAvailableMovesOfGame`` () =
     Assert.Equal<Collections.Generic.ICollection<int>>(expected, actual)
 
 [<Fact>]
-let ``DoMiniMax_WithBoard_OO--XXOXX_ReturnsBestMoveForMaxPlayer`` () =
-    let board = [|"O"; "O"; " "; " "; "X"; "X"; "O"; "X"; "X"|]
-    let expected = 4
-    let depth = 2 
-    let marker = "O"
-    let actual = Minimax.MiniMax (board) depth marker
+let ``MiniMax_ReturnBestValueOfMaximizingPlayer``() =
+    let board = [|" "; " "; " "; " "; " "; "O"; "X"; " "; " "|]
+    let expected = 100 
+    let actual = Minimax.MiniMax (board) 7 "X"
     Assert.Equal(expected, actual)
 
-//[<Fact>]
-//let ``DoMiniMax_XO-X-O---_ReturnsBestMoveForMaxPlayer`` () = 
-//    let board =  [|"X"; "O"; " "; "X"; "-"; "O"; "-"; "-"; "-"|]
-//    let expected = 7 
-//    let depth = 0
-//    let maxPlayer = "X"
-//    let marker = "X"
-//    let actual = Minimax.MiniMax (board) depth maxPlayer marker
-//    Assert.Equal(expected, actual)
+
+

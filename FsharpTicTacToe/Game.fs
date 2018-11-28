@@ -6,11 +6,10 @@ open ConsoleUi
 open Minimax
 
 let mutable board = InitializeBoard  
-let mutable turnsPlayed = 0
 let mutable marker = " " 
 
-let CheckWin () = 
-    if(IsWin (board) marker = true) then  
+let CheckForWin () = 
+    if(GameWon (board) marker = true) then  
         PrintBoard board
         WinPrompt ()
         ExitGame ()
@@ -34,20 +33,17 @@ let HumanPlayerTurn() =
     else 
         invalidMovePrompt ()
         humanMove <- Console.ReadLine() |> int
-    CheckWin()
-    turnsPlayed <- turnsPlayed + 1
+    CheckForWin()
     PrintBoard board
 
 let ComputerPlayerTurn() =  
     MovePrompt ()
     marker <- "O" 
-    //let mutable computerMove = GenerateRandomMove (board)
-    let mutable computerMove = MakeBestMove(board) 8 marker 
+    let mutable computerMove = GenerateRandomMove (board)
+    //let mutable computerMove = MakeBestMove(board) 8 marker 
     if (IsAvailablePosition (board) computerMove = true) then
         ModifyBoard(board) computerMove marker |> ignore
     else 
         board |> ignore 
-    CheckWin()
-    turnsPlayed <- turnsPlayed + 1
+    CheckForWin()
     PrintBoard board
-
