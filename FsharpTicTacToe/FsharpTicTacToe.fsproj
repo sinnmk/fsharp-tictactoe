@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <Compile Include="Board.fs" />
-    <Compile Include="Minimax.fs" />
     <Compile Include="ConsoleUi.fs" />
+    <Compile Include="Minimax.fs" />
     <Compile Include="Game.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

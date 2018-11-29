@@ -29,25 +29,6 @@
         else 
             false
 
-    let CheckHorizontalWins (board: array<string>) (marker: string): bool = 
-        let mutable count = 0
-        let mutable result = false
-        let mutable start = 0
-        let mutable stop = 3
-
-        for i = start to stop do
-            if board.[i] = marker then
-                count <- count + 1
-            else 
-                count <- count
-
-        start <- start + 3
-        stop <- stop + 3
-
-        if count = 3 then
-            result <- true
-        result
-
     let GameWon (board: array<string>)  (marker: string): bool=
         let mutable result = false
 

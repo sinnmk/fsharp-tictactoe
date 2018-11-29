@@ -29,17 +29,3 @@ let ``GetListOfMoves_ReturnsAListOfAvailableMovesOfGame`` () =
     let expected = [|1; 2; 3; 4; 5; 8; 9|]
     let actual = Minimax.GetListOfMoves (board)
     Assert.Equal<Collections.Generic.ICollection<int>>(expected, actual)
-
-[<Fact>]
-let ``MiniMax_ReturnBestValueOfMaximizingPlayer``() =
-    let board = [|" "; " "; " "; " "; " "; "O"; "X"; " "; " "|]
-    let expected = 100 
-    let actual = Minimax.MiniMax (board) 7 "X"
-    Assert.Equal(expected, actual)
-
-[<Fact>]
-let ``MakeBestMove_ReturnBestMoveOfMaxPlayer`` () =
-    let board = [|"X"; "X"; " "; " "; " "; "O"; "X"; "O"; "O"|]
-    let expected = 3
-    let actual = Minimax.MakeBestMove (board) 5 "X"
-    Assert.Equal(expected, actual)

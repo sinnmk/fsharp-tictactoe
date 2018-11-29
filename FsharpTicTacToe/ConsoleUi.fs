@@ -33,6 +33,7 @@ let WinPrompt () =
 
 let ExitGame () = 
     System.Threading.Thread.Sleep(1000)
+    Console.ReadLine()
     Environment.Exit(-1)
 
 let PrintBoard board = 
