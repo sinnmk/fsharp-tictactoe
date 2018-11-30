@@ -31,31 +31,34 @@
 
     let GameWon (board: array<string>)  (marker: string): bool=
         let mutable result = false
-
-        if board.[0] = marker && board.[1] = marker && board.[2] = marker then
-            result <- true
-            result
-        else if board.[3] = marker && board.[4] = marker && board.[5] = marker then
-            result <- true
-            result
-        else if board.[6] = marker && board.[7] = marker && board.[8] = marker then
-            result <- true
-            result
-        else if board.[0] = marker && board.[3] = marker && board.[6] = marker then
-            result <- true
-            result
-        else if board.[1] = marker && board.[4] = marker && board.[7] = marker then
-            result <- true
-            result
-        else if board.[2] = marker && board.[5] = marker && board.[8] = marker then
-            result <- true
-            result
-        else if board.[0] = marker && board.[4] = marker && board.[8] = marker then
-            result <- true
-            result
-        else if board.[2] = marker && board.[4] = marker && board.[6] = marker then
-            result <- true
-            result
-        else
+        if marker <> " " then
+            if board.[0] = marker && board.[1] = marker && board.[2] = marker then
+                result <- true
+                result
+            else if board.[3] = marker && board.[4] = marker && board.[5] = marker then
+                result <- true
+                result
+            else if board.[6] = marker && board.[7] = marker && board.[8] = marker then
+                result <- true
+                result
+            else if board.[0] = marker && board.[3] = marker && board.[6] = marker then
+                result <- true
+                result
+            else if board.[1] = marker && board.[4] = marker && board.[7] = marker then
+                result <- true
+                result
+            else if board.[2] = marker && board.[5] = marker && board.[8] = marker then
+                result <- true
+                result
+            else if board.[0] = marker && board.[4] = marker && board.[8] = marker then
+                result <- true
+                result
+            else if board.[2] = marker && board.[4] = marker && board.[6] = marker then
+                result <- true
+                result
+            else
+                result
+        else 
+            result <- false
             result
 

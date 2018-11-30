@@ -38,11 +38,11 @@ let HumanPlayerTurn() =
 
 let ComputerPlayerTurn() =  
     let mutable depth = 9
-    let mutable value = 0
     MovePrompt ()
     marker <- "O" 
     //let mutable computerMove = GenerateRandomMove (board)
-    let mutable computerMove = MiniMax (board) depth marker 
+    //let mutable computerMove = MiniMax (board) depth marker 
+    let mutable computerMove = MakeBestMove(board) depth marker
     if (IsAvailablePosition (board) computerMove = true) then
         ModifyBoard(board) computerMove marker |> ignore
     else 

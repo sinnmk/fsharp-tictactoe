@@ -44,7 +44,6 @@ let rec MiniMax (board) depth marker=
                 board <- ModifyBoard(board) move marker 
                 value <- max(value)(MiniMax(board) depth "O")  
                 board <- ModifyBoard(board) move " "
-                PrintBoard board
             v <- value
 
         else
@@ -55,8 +54,52 @@ let rec MiniMax (board) depth marker=
                 board <- ModifyBoard(board) move marker 
                 value <- min(value)(MiniMax(board) depth "X")  
                 board <- ModifyBoard(board) move " "
-                PrintBoard board
-                System.Console.ReadLine()
             v <- value
         v <- v
     v
+
+let MakeBestMove(board) depth marker = 
+    let mutable board = board
+    let mutable depth = depth
+    let mutable marker = marker
+    let mutable moves = GetListOfMoves board
+    let mutable bestMove = 0
+    let mutable potentialMoves = ResizeArray<int>()
+    let mutable value = 0
+    let mutable m = 0
+
+    for move in moves do 
+        board <- ModifyBoard (board) move marker 
+        value <- MiniMax(board) depth marker
+        board <- ModifyBoard (board) move " "
+        if marker = "X" then
+            if value = 100 then
+                bestMove <-move 
+            else if value > 0 then
+                potentialMoves.Add(move) 
+        else if marker = "O" then
+            if value = -100 then
+                bestMove <-move 
+            else if value > -100 then
+                potentialMoves.Add(move)
+        if bestMove > 0 then
+            m <- bestMove  
+        else if potentialMoves.Count > 0 then
+            m <- potentialMoves.[0]
+    m
+
+
+
+          
+
+
+
+
+
+
+                
+
+        
+
+    
+

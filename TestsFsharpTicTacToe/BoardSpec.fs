@@ -63,6 +63,14 @@ let ``CheckForWinForPlayerO_ChecksIfGameIsWon_ReturnsFalseIfNotWon`` () =
     Assert.Equal(expected, actual)
 
 [<Fact>]
+let ``CheckForWin_ChecksIfGameIsWOn_ReturnsFalseIfNotWon``() =
+    let expected = false 
+    let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
+    let marker = " "
+    let actual = Board.GameWon (board) marker
+    Assert.Equal(expected, actual)
+
+[<Fact>]
 let ``IsBoardTerminal_ChecksIfBoardIsCompleted_ReturnsTrueIfCompleted`` () =
     let expected = true
     let board = [|"X"; "X"; "X"; "O"; "X"; "O"; "O"; "O"; "X"|]
