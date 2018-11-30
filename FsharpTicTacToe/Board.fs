@@ -1,5 +1,8 @@
 ﻿module Board
 
+open System.IO
+open System.IO
+
     let InitializeBoard = 
         let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
         board
@@ -16,14 +19,12 @@
         |"O" -> false
 
     let IsBoardTerminal (board: array<string>)= 
-        let mutable i = 0
         let mutable count = 0
         for i = 0 to 8 do
             if board.[i] = " " then  
                 count <- count 
             else 
                 count <- count + 1 
-        i <- i + 1
         if count = board.Length then
             true
         else 

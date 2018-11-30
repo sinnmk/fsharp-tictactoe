@@ -1,6 +1,5 @@
 ﻿module Minimax
 open Board
-open ConsoleUi
 
 let GetListOfMoves (board: array<string>) =
     let listOfMoves = ResizeArray<int>() 
@@ -31,28 +30,25 @@ let SwitchMarker marker=
 
 let rec MiniMax (board) depth marker= 
     let mutable v = 0
-    if ((GameWon(board) marker) = true || depth = 0 || (GetListOfMoves(board).Count = 0)) then
+    let mutable board = board
+    let mutable moves = GetListOfMoves(board)
+
+    if ((GameWon(board) marker) = true || depth = 0 || (moves.Count = 0)) then
         let mutable score = EvaluateScore board
         v <- score
     else
-
         if marker = "X" then
             let mutable value = -100
-            let mutable moves = GetListOfMoves board
-            let mutable board = board
             for move in moves do
                 board <- ModifyBoard(board) move marker 
-                value <- max(value)(MiniMax(board) depth "O")  
+                value <- max(value)(MiniMax(board) (depth-1) "O")  
                 board <- ModifyBoard(board) move " "
             v <- value
-
-        else
+        else if marker = "O" then
             let mutable value = 100
-            let mutable board = board
-            let mutable moves = GetListOfMoves board
             for move in moves do 
                 board <- ModifyBoard(board) move marker 
-                value <- min(value)(MiniMax(board) depth "X")  
+                value <- min(value)(MiniMax(board) (depth-1) "X")  
                 board <- ModifyBoard(board) move " "
             v <- value
         v <- v
@@ -62,32 +58,44 @@ let MakeBestMove(board) depth marker =
     let mutable board = board
     let mutable depth = depth
     let mutable marker = marker
-    let mutable moves = GetListOfMoves board
-    let mutable bestMove = 0
-    let mutable potentialMoves = ResizeArray<int>()
     let mutable value = 0
-    let mutable m = 0
+    let mutable moves = GetListOfMoves board
+    let mutable potentialMoves = ResizeArray<int>()
+    let mutable bestMove = 0
+    let mutable r = 0
 
-    for move in moves do 
-        board <- ModifyBoard (board) move marker 
-        value <- MiniMax(board) depth marker
-        board <- ModifyBoard (board) move " "
-
-        if marker = "X" then
-            if value = 100 then
-                bestMove <-move 
-            else if value > 0 then
-                potentialMoves.Add(move) 
-        else if marker = "O" then
-            if value = -100 then
-                bestMove <-move 
-            else if value > -100 then
-                potentialMoves.Add(move)
+    if moves.Count = 9 then
+        bestMove <- 1
+    else if moves.Count = 8 && (IsAvailablePosition(board) 5 = true) then
+        bestMove <- 5
+    else if moves.Count = 8 && (IsAvailablePosition(board) 5 = false) then
+        bestMove <- 1
+    else
+        for move in moves do 
+            board <- ModifyBoard (board) move marker 
+            value <- MiniMax(board) depth marker
+            board <- ModifyBoard (board) move " "
+            if marker = "X" && (r=0) then
+                if value = 100 then
+                    bestMove <- move
+                    r <-1
+                else if value > 0 then
+                    potentialMoves.Add(move)
+                else 
+                    potentialMoves.Add(move)
+            if marker = "O" && (r=0) then
+                if value = -100 then
+                    bestMove <-move 
+                    r <-1
+                else if value < 0 then
+                    potentialMoves.Add(move)
+                else
+                    potentialMoves.Add(move)
         if bestMove > 0 then
-            m <- bestMove  
+            bestMove <- bestMove  
         else if potentialMoves.Count > 0 then
-            m <- potentialMoves.[0]
-    m
+            bestMove <- potentialMoves.[0]
+    bestMove 
 
 
 

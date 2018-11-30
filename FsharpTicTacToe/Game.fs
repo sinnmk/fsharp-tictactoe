@@ -37,7 +37,7 @@ let HumanPlayerTurn() =
     PrintBoard board
 
 let ComputerPlayerTurn() =  
-    let mutable depth = 9
+    let mutable depth = GetListOfMoves(board).Count 
     MovePrompt ()
     marker <- "O" 
     //let mutable computerMove = GenerateRandomMove (board)
