@@ -22,11 +22,12 @@ let EvaluateScore (board): int =
 
 let SwitchMarker marker= 
     let mutable marker = marker
-    if marker = "X" then
-        marker <- "O"
-    else if marker = "O" then 
-        marker <- "X"
-    marker
+    let result = 
+        match marker with 
+        |"X" -> "O"
+        |"O" -> "X"
+        |_ -> "X"
+    result
 
 let rec MiniMax (board) depth marker= 
     let mutable v = 0
