@@ -72,6 +72,7 @@ let MakeBestMove(board) depth marker =
         board <- ModifyBoard (board) move marker 
         value <- MiniMax(board) depth marker
         board <- ModifyBoard (board) move " "
+
         if marker = "X" then
             if value = 100 then
                 bestMove <-move 
