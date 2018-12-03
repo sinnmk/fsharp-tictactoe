@@ -1,11 +1,8 @@
 ﻿module Program
-
 open System
 open Board
 open ConsoleUi
 open Game
-open Minimax
-
 [<EntryPoint>]
 
 let main args =

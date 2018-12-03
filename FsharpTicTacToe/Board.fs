@@ -4,9 +4,8 @@ let InitializeBoard =
     let mutable board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
     board
 
-let ModifyBoard (board: array<string>) move marker: array<string> = 
+let ModifyBoard (board: array<string>) move marker = 
      board.[move-1] <- marker 
-     board
 
 let IsAvailablePosition (board: array<string>) (move) : bool = 
     match board.[move-1] with
