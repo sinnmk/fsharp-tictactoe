@@ -6,6 +6,7 @@ let InitializeBoard =
 
 let ModifyBoard (board: array<string>) move marker = 
      board.[move-1] <- marker 
+     board
 
 let IsAvailablePosition (board: array<string>) (move) : bool = 
     match board.[move-1] with
@@ -21,22 +22,25 @@ let IsBoardTerminal (board: array<string>)=
             count <- count 
         else 
             count <- count + 1 
-    if count = board.Length then
+    if count = 9 then
         true
     else 
         false
 
 let GameWon (board: array<string>)  (marker: string): bool=
     let mutable board = board
-    let mutable result = 
+    let mutable result = false
+    if marker = " " then
+        result <- false
+    else if marker = "X" || marker = "O" then
         match board with 
-        |[|a; b; c; _; _; _; _; _; _|] when a = marker && b = marker && c = marker-> true
-        |[|_; _; _; a; b; c; _; _; _|] when a = marker && b = marker && c = marker-> true
-        |[|_; _; _; _; _; _; a; b; c|] when a = marker && b = marker && c = marker-> true
-        |[|a; _; _; b; _; _; c; _; _|] when a = marker && b = marker && c = marker-> true
-        |[|_; a; _; _; b; _; _; c; _|] when a = marker && b = marker && c = marker-> true
-        |[|_; _; a; _; _; b; _; _; c|] when a = marker && b = marker && c = marker-> true
-        |[|a; _; _; _; b; _; _; _; c|] when a = marker && b = marker && c = marker-> true
-        |[|_; _; a; _; b; _; c; _; _|] when a = marker && b = marker && c = marker-> true
-        |_ -> false
+        |[|a; b; c; _; _; _; _; _; _|] when a = marker && b = marker && c = marker-> result <- true
+        |[|_; _; _; a; b; c; _; _; _|] when a = marker && b = marker && c = marker-> result <- true
+        |[|_; _; _; _; _; _; a; b; c|] when a = marker && b = marker && c = marker-> result <- true
+        |[|a; _; _; b; _; _; c; _; _|] when a = marker && b = marker && c = marker-> result <- true
+        |[|_; a; _; _; b; _; _; c; _|] when a = marker && b = marker && c = marker-> result <- true
+        |[|_; _; a; _; _; b; _; _; c|] when a = marker && b = marker && c = marker-> result <- true
+        |[|a; _; _; _; b; _; _; _; c|] when a = marker && b = marker && c = marker-> result <- true
+        |[|_; _; a; _; b; _; c; _; _|] when a = marker && b = marker && c = marker-> result <- true
+        |_ -> result <- false
     result

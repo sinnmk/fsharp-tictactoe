@@ -14,12 +14,12 @@ let CheckForWin () =
         WinPrompt ()
         ExitGame ()
 
-let rec GetHumanMove() = 
-    let mutable humanMove = Console.ReadLine() 
-    humanMove |> int 
+let GetHumanMove () = 
+    let mutable humanMove = Console.ReadLine() |> int
+    humanMove
 
 let GenerateRandomMove (board) = 
-    let moves = GetListOfMoves(board)
+    let moves = GetListOfMoves board
     let mutable computerMove = moves.[System.Random().Next(moves.Count)]
     computerMove
 
@@ -28,18 +28,21 @@ let HumanPlayerTurn() =
     marker <- "X"
     let mutable humanMove = GetHumanMove() 
     if (IsAvailablePosition (board) humanMove = true) then
-        ModifyBoard (board) humanMove marker
+        ModifyBoard (board) humanMove marker|> ignore
     else 
         invalidMovePrompt ()
-        humanMove <- Console.ReadLine() |> int
+        humanMove <- GetHumanMove() 
     CheckForWin()
     PrintBoard board
 
 let ComputerPlayerTurn() =  
+    let mutable depth = GetListOfMoves(board).Count 
     MovePrompt ()
     marker <- "O" 
     let mutable computerMove = GenerateRandomMove (board)
     if (IsAvailablePosition (board) computerMove = true) then
-        ModifyBoard(board) computerMove marker
+        ModifyBoard(board) computerMove marker |> ignore
+    else 
+        board |> ignore 
     CheckForWin()
     PrintBoard board

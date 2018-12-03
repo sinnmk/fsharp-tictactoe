@@ -29,4 +29,3 @@ let ``ValidateNumIsNum_ReturnsInvalidIfInputIsNotNum`` () =
     let input = "This is a string not number."
     let actual = ValidateNumIsNum input
     Assert.Equal(expected, actual)
-

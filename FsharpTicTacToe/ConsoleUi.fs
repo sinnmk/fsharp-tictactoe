@@ -13,14 +13,14 @@ let GameMenu =
 
 let DrawGamePrompt () = printfn "The game is a draw..."
 
-//let ValidateInputIsThere (input:string) =
-//    if input = "" then Invalid ["Input cannot be empty. Please re-enter your input."] 
-//    else Ok
+let ValidateInputIsThere (input:string) =
+    if input = "" then Invalid ["Input cannot be empty. Please re-enter your input."] 
+    else Ok
 
-//let ValidateNumIsNum (input: string) =
-//    match (System.Int32.TryParse(input)) with
-//    | (true, input) -> Ok 
-//    | (false, _) -> Invalid ["Error: Input is not a number. Please re-enter a valid number."]
+let ValidateNumIsNum (input: string) =
+    match (System.Int32.TryParse(input)) with
+    | (true, input) -> Ok 
+    | (false, _) -> Invalid ["Error: Input is not a number. Please re-enter a valid number."]
 
 let MovePrompt () = 
     printfn "Please enter your move: "

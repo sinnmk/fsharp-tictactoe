@@ -4,30 +4,37 @@ open System;
 open Xunit;
 
 [<Fact>]
-let ``CreateBoard_ReturnsAnEmptyArrayOfEmptyStrings`` () =
+let ``InitializeBoard_ReturnsAnEmptyArrayOfEmptyStrings`` () =
     let expected = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|] 
     let actual = Board.InitializeBoard
     Assert.Equal<Collections.Generic.IEnumerable<string>>(expected, actual)
 
 [<Fact>]
-let ``ModifyBoard_ModifiesBoardAtMoveIndex_ReturnsModifiedBoard`` () =
+let ``ModifyBoard_ModifiesBoardAtMoveIndexAndPlacesAnX_ReturnsModifiedBoard`` () =
     let expected = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]  
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|] 
     let actual = Board.ModifyBoard (board) 1 "X" 
-    Assert.Equal<Collections.Generic.ICollection<string>>(expected, actual)
+    Assert.Equal<Collections.Generic.IEnumerable<string>>(expected, actual)
+
+[<Fact>]
+let ``ModifyBoard_ModifiesBoardAtMoveIndexAndPlacesAnO_ReturnsModifiedBoard`` () =
+    let expected = [|"X"; " "; " "; " "; "O"; " "; " "; " "; " "|]  
+    let board = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|] 
+    let actual = Board.ModifyBoard (board) 5 "O" 
+    Assert.Equal<Collections.Generic.IEnumerable<string>>(expected, actual)
 
 [<Fact>]
 let ``IsAvailablePositionOpen_ChecksIfPositionIsOpen_ReturnsTrueIfOpen`` () =
     let expected = true
     let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let actual = Board.IsAvailablePosition (board)1 
+    let actual = Board.IsAvailablePosition (board) 1 
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``IsAvailablePositionOpen_ChecksIfPositionIsOpen_ReturnsFalseIfNot`` () =
     let expected = false 
     let board = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]
-    let actual = Board.IsAvailablePosition (board)1 
+    let actual = Board.IsAvailablePosition (board) 1 
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -62,13 +69,13 @@ let ``CheckForWinForPlayerO_ChecksIfGameIsWon_ReturnsFalseIfNotWon`` () =
     let actual = Board.GameWon (board) marker
     Assert.Equal(expected, actual)
 
-//[<Fact>]
-//let ``CheckForWin_ChecksIfGameIsWOn_ReturnsFalseIfNotWon``() =
-//    let expected = false 
-//    let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-//    let marker = " "
-//    let actual = Board.GameWon (board) marker
-//    Assert.Equal(expected, actual)
+[<Fact>]
+let ``CheckForWin_ChecksIfGameIsWonIfMarkerIsNotXOrO_ReturnsFalse``() =
+    let expected = false 
+    let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
+    let marker = " "
+    let actual = Board.GameWon (board) marker
+    Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``IsBoardTerminal_ChecksIfBoardIsCompleted_ReturnsTrueIfCompleted`` () =
