@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="MinimaxSpec.fs" />
     <Compile Include="ConsoleUiSpec.fs" />
     <Compile Include="BoardSpec.fs" />
   </ItemGroup>

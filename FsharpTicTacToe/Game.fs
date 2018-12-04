@@ -37,11 +37,10 @@ let HumanPlayerTurn() =
     PrintBoard board
 
 let ComputerPlayerTurn() =  
-    let mutable depth = GetListOfMoves(board).Count 
     MovePrompt ()
     marker <- "O" 
     //let mutable computerMove = GenerateRandomMove (board)
-    let mutable computerMove = MakeBestMove(board) depth marker
+    let mutable computerMove = MakeBestMove(board) marker
     if (IsAvailablePosition (board) computerMove = true) then
         ModifyBoard(board) computerMove marker |> ignore
     else 
