@@ -25,3 +25,4 @@ let SwitchMarker marker=
         |"O" -> "X"
         |_ -> "X"
     result
+

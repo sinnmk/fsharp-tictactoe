@@ -37,7 +37,6 @@ let ExitGame () =
 
 let PrintBoard board = 
     let join s arr = sprintf "%s%s%s" s (String.concat s arr) s
-
     board 
     |> Seq.chunkBySize 3
     |> Seq.map (Seq.map (sprintf " %s ") >> join "|")
