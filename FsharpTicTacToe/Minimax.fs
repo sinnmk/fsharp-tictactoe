@@ -1,5 +1,6 @@
 ﻿module Minimax
 open Board
+open ConsoleUi
 
 let GetListOfMoves (board: array<string>) =
     let listOfMoves = ResizeArray<int>() 
@@ -38,32 +39,34 @@ let MakeBestFirstMove(board) =
         bestMove <- 1
     bestMove
 
-let rec MiniMax (board) marker= 
+let rec MiniMax (board) index marker= 
     let mutable value = 0
     let mutable board = board
     let mutable moves = GetListOfMoves(board)
     let mutable marker = marker
     let mutable bestValue = 0
+    let mutable index = index
 
     if ((GameWon(board) marker) = true || (moves.Count = 0)) then
         let mutable score = EvaluateScore board 
-        value <- score
+        bestValue <- score
     else
         if marker = "X" then
             bestValue <- -100
             for move in moves do
+                let mutable move = move
                 board <- ModifyBoard(board) move marker 
-                value <- MiniMax(board)("O") 
+                value <- max(MiniMax(board)(index)("O"))(bestValue) 
                 board <- ModifyBoard(board) move " "
-                bestValue <- max(value)(bestValue)
-
-        else if marker = "O" then
+            bestValue <- value
+        if marker = "O" then
             bestValue <- 100
             for move in moves do
+                let mutable move = move
                 board <- ModifyBoard(board) move marker 
-                value <- MiniMax(board)("X") 
+                value <- min(MiniMax(board)(index)("X"))(bestValue) 
                 board <- ModifyBoard(board) move " "
-                bestValue <- min(value)(bestValue)
+            bestValue <- value
     bestValue
 
 let MakeBestMove(board) marker = 
@@ -78,13 +81,13 @@ let MakeBestMove(board) marker =
         bestMove <- MakeBestFirstMove(board)
     else 
         for move in moves do 
-            board <- ModifyBoard (board) move marker 
-            value <- MiniMax(board) marker
-            board <- ModifyBoard (board) move " "
-            if value = -100 && marker = "O" && r = 0 then
-                r <- r+1 
-                bestMove <- move 
-            else if value = 100 && marker = "X" && r = 0 then
-                r <- r+1
-                bestMove <- move
+            board <- ModifyBoard(board) move marker
+            value <- MiniMax(board) move (SwitchMarker(marker)) 
+            board <- ModifyBoard(board) move " "
+            if marker = "O" then
+                if value = -100 && r = 0 then
+                    bestMove <- move 
+                if value = 0 then
+                    bestMove <- move
+        bestMove<-bestMove
     bestMove 
