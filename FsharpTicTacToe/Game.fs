@@ -39,7 +39,7 @@ let HumanPlayerTurn() =
 let ComputerPlayerTurn() =  
     MovePrompt ()
     marker <- "O" 
-    let mutable computerMove = MiniMax(board) marker 
+    let mutable computerMove = MakeBestMove(board) 
     if (IsAvailablePosition (board) computerMove = true) then
         ModifyBoard(board) computerMove marker |> ignore
     else 
