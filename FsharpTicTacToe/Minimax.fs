@@ -79,6 +79,10 @@ let MakeBestMove (board) =
             board<-ModifyBoard(board) move " "
             if value = -100 then
                 bestMove <- move 
+            if value < 0 then
+                bestMoves.Add(move)
+            else if value = 0 then
+                bestMoves.Add(move)
         if bestMove = 0 && bestMoves.Count > 0 then
             bestMove <- bestMoves.[0]
         elif bestMove <> 0 then
@@ -87,6 +91,7 @@ let MakeBestMove (board) =
             bestMove <- GetListOfMoves(board).[0]
     bestMove 
 
+    
 //let rec MiniMax(board) marker = 
 //    let mutable bestValue = 0
 //    let mutable board = board
