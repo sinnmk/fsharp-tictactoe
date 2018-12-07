@@ -1,13 +1,11 @@
 ﻿module Minimax
 open Board
 
-let GetListOfMoves (board: array<string>) =
+let GetListOfMoves (board:array<string>) =
     let listOfMoves = ResizeArray<int>() 
     for i=0 to 8 do
         if board.[i] = " " then
             listOfMoves.Add (i+1) 
-        else 
-            listOfMoves |> ignore
     listOfMoves  
 
 let EvaluateScore (board): int =
@@ -52,7 +50,7 @@ let rec MiniMax(board) marker =
                 bestValue <- max(MiniMax(board) "O")(bestValue) 
                 board <- ModifyBoard(board) move " "
             bestValue <- bestValue
-        else 
+        else if marker = "O" then 
             bestValue <- 100
             for move in moves do  
                 board <- ModifyBoard(board) move marker
@@ -91,61 +89,7 @@ let MakeBestMove (board) marker =
         bestMove <- bestMove
     else
         bestMove <- GetListOfMoves(board).[0]
-    bestMove       
-
-
-                    
-
-
-            
-
-
-                
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    bestMove     
 
 //let rec MiniMax (board) marker= 
 //    let mutable value = 0
