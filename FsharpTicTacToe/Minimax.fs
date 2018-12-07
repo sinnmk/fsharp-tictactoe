@@ -90,7 +90,6 @@ let MakeBestMove (board) =
         else
             bestMove <- GetListOfMoves(board).[0]
     bestMove 
-
     
 //let rec MiniMax(board) marker = 
 //    let mutable bestValue = 0
