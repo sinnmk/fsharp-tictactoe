@@ -51,30 +51,31 @@ let ``GetListOfMoves_ReturnsAListOfAvailableMovesOfGame`` () =
     let actual = Minimax.GetListOfMoves (board)
     Assert.Equal<Collections.Generic.ICollection<int>>(expected, actual)
 
-//[<Fact>]
-//let ``MakeBestMove_WhenBoardIsEmpty_Returns1AsBestMove`` () =
-//    let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
-//    let expected = 1
-//    let actual = Minimax.MakeBestMove (board) 9 "X" 
-//    Assert.Equal(expected, actual)
+[<Fact>]
+let ``MakeBestMove_WhenBoardIsEmpty_Returns1AsBestMove`` () =
+    let board = [|" "; " "; " "; " "; " "; " "; " "; " "; " "|]
+    let expected = 1
+    let actual = Minimax.MakeBestMove (board) 
+    Assert.Equal(expected, actual)
 
-//[<Fact>]
-//let ``MakeBestMove_WhenBoardHasOneMoveInPosition1_Returns5AsBestMove`` () =
-//    let board = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]
-//    let expected = 5
-//    let actual = Minimax.MakeBestMove (board) 8 "O" 
-//    Assert.Equal(expected, actual)
+[<Fact>]
+let ``MakeBestMove_WhenBoardHasOneMoveInPosition1_Returns5AsBestMove`` () =
+    let board = [|"X"; " "; " "; " "; " "; " "; " "; " "; " "|]
+    let expected = 5
+    let actual = Minimax.MakeBestMove (board) 
+    Assert.Equal(expected, actual)
 
-//[<Fact>]
-//let ``MakeBestMove_WhenBoardIs_X-X-O----_Returns2AsBestMove`` () =
-//    let board = [|"X"; " "; "X"; " "; "O"; " "; " "; " "; " "|]
-//    let expected = 2
-//    let actual = Minimax.MakeBestMove(board) 6 "O"
-//    Assert.Equal(expected, actual)
+[<Fact>]
+let ``MakeBestMove_WhenBoardIs_X-X-O----_Returns2AsBestMove`` () =
+    let board = [|"X"; " "; "X"; " "; "O"; " "; " "; " "; " "|]
+    let expected = 2
+    let actual = Minimax.MakeBestMove(board) 
+    Assert.Equal(expected, actual)
 
-//[<Fact>]
-//let ``MakeBestMove_WhenBoardIs_XOX-O---X_Returns8AsBestMove`` () =
-//    let board = [|"X"; "O"; "X"; " "; "O"; " "; " "; " "; "X"|]
-//    let expected = 8
-//    let actual = Minimax.MakeBestMove(board) 4 "O"
-//    Assert.Equal(expected, actual)
+[<Fact>]
+let ``MakeBestMove_WhenBoardIs_XOX-O---X_Returns8AsBestMove`` () =
+    let board = [|"X"; "O"; "X"; " "; "O"; " "; " "; " "; "X"|]
+    let expected = 8
+    let actual = Minimax.MakeBestMove(board)  
+    Assert.Equal(expected, actual)
+

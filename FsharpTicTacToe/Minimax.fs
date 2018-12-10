@@ -43,7 +43,7 @@ let rec MiniMax (board) marker=
     let mutable marker = marker
     let mutable bestValue = 0
 
-    if GameWon board "X" = true || GameWon board "O" = true || moves.Count = 0 then
+    if GameWon board "X"|| GameWon board "O"|| moves.Count = 0 then
         let mutable score = EvaluateScore board 
         bestValue <- score
     else
@@ -52,7 +52,7 @@ let rec MiniMax (board) marker=
             for move in moves do
                 let mutable move = move
                 board <- ModifyBoard(board) move marker 
-                value <- MiniMax(board)("O") 
+                value <- MiniMax(board)(SwitchMarker marker) 
                 bestValue <- max(value)(bestValue)
                 board <- ModifyBoard(board) move " "
             bestValue <- bestValue
@@ -61,7 +61,7 @@ let rec MiniMax (board) marker=
             for move in moves do
                 let mutable move = move
                 board <- ModifyBoard(board) move marker 
-                value <- MiniMax(board)("X") 
+                value <- MiniMax(board)(SwitchMarker marker) 
                 bestValue <- min(value)(bestValue)
                 board <- ModifyBoard(board) move " "
             bestValue <- bestValue
