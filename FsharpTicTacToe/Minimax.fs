@@ -1,7 +1,7 @@
 ﻿module Minimax
 open Board
 
-let GetListOfMoves (board:array<string>) =
+let GetListOfMoves (board: array<string>) =
     let listOfMoves = ResizeArray<int>() 
     for i=0 to 8 do
         if board.[i] = " " then
@@ -30,7 +30,7 @@ let MakeBestFirstMove(board) =
     let mutable bestMove = 0
     if moves.Count = 9 then
         bestMove <- 1
-    else if moves.Count = 8 && (IsAvailablePosition(board) 5 = true) then 
+    else if moves.Count = 8 && (IsAvailablePosition(board) 5) then 
         bestMove <- 5
     else if moves.Count = 8 && (IsAvailablePosition(board) 5 = false) then
         bestMove <- 1
@@ -55,7 +55,6 @@ let rec MiniMax (board) marker=
                 value <- MiniMax(board)(SwitchMarker marker) 
                 bestValue <- max(value)(bestValue)
                 board <- ModifyBoard(board) move " "
-            bestValue <- bestValue
         else
             bestValue <- 100
             for move in moves do
@@ -64,7 +63,6 @@ let rec MiniMax (board) marker=
                 value <- MiniMax(board)(SwitchMarker marker) 
                 bestValue <- min(value)(bestValue)
                 board <- ModifyBoard(board) move " "
-            bestValue <- bestValue
     bestValue
 
 let MakeBestMove (board) = 
@@ -78,7 +76,7 @@ let MakeBestMove (board) =
         for move in listOfMoves do
             board <- ModifyBoard(board) move "O" 
             let mutable value = MiniMax(board) "X"
-            board<-ModifyBoard(board) move " "
+            board <- ModifyBoard(board) move " "
             if value = -100 then
                 bestMove <- move 
             if value < 0 then

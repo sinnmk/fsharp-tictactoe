@@ -1,5 +1,4 @@
 ﻿module Game
-
 open System
 open Board
 open ConsoleUi
