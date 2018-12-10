@@ -43,7 +43,7 @@ let rec MiniMax (board) marker=
     let mutable marker = marker
     let mutable bestValue = 0
 
-    if ((GameWon(board) marker) = true || (moves.Count = 0)) then
+    if GameWon board "X" = true || GameWon board "O" = true || moves.Count = 0 then
         let mutable score = EvaluateScore board 
         bestValue <- score
     else
@@ -55,6 +55,7 @@ let rec MiniMax (board) marker=
                 value <- MiniMax(board)("O") 
                 bestValue <- max(value)(bestValue)
                 board <- ModifyBoard(board) move " "
+            bestValue <- bestValue
         else
             bestValue <- 100
             for move in moves do
@@ -63,6 +64,7 @@ let rec MiniMax (board) marker=
                 value <- MiniMax(board)("X") 
                 bestValue <- min(value)(bestValue)
                 board <- ModifyBoard(board) move " "
+            bestValue <- bestValue
     bestValue
 
 let MakeBestMove (board) = 
@@ -91,57 +93,3 @@ let MakeBestMove (board) =
             bestMove <- GetListOfMoves(board).[0]
     bestMove 
     
-//let rec MiniMax(board) marker = 
-//    let mutable bestValue = 0
-//    let mutable board = board
-//    let mutable moves = GetListOfMoves(board) 
-//    if GameWon(board) marker = true || GetListOfMoves(board).Count = 0 then
-//        bestValue <- EvaluateScore(board)
-//    else
-//        if marker = "X" then
-//            bestValue <- -100
-//            for move in moves do  
-//                board <- ModifyBoard(board) move marker
-//                bestValue <- max(MiniMax(board) "O")(bestValue) 
-//                board <- ModifyBoard(board) move " "
-//            bestValue <- bestValue
-//        else if marker = "O" then 
-//            bestValue <- 100
-//            for move in moves do  
-//                board <- ModifyBoard(board) move marker
-//                bestValue <- min(MiniMax(board) "X")(bestValue) 
-//                board <- ModifyBoard(board) move " "
-//            bestValue <- bestValue
-//    bestValue
-
-//let MakeBestMove (board) marker = 
-//    let mutable board = board
-//    let mutable bestMove = 0
-//    let mutable bestValue = 0
-//    let mutable bestMoves = ResizeArray<int>()
-//    let moves = GetListOfMoves(board)
-//    for move in moves do
-//        board <- ModifyBoard(board) move marker
-//        bestValue <- MiniMax(board) "X" 
-//        board <- ModifyBoard(board) move " "
-//        if marker = "X" then
-//            if bestValue = 100 then
-//                bestMove <- move
-//            if bestValue > 0 then
-//                bestMoves.Add(move)
-//            else if bestValue = 0 then
-//                bestMoves.Add(move)
-//        elif marker = "O" then
-//            if bestValue = -100 then
-//                bestMove <- move
-//            if bestValue < 0 then
-//                bestMoves.Add(move)
-//            else if bestValue = 0 then
-//                bestMoves.Add(move)
-//    if bestMove = 0 && bestMoves.Count > 0 then
-//        bestMove <- bestMoves.[0]
-//    elif bestMove <> 0 then
-//        bestMove <- bestMove
-//    else
-//        bestMove <- GetListOfMoves(board).[0]
-//    bestMove     
