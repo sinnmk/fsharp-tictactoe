@@ -1,21 +1,21 @@
 ﻿module Game
-open System
 open Board
 open ConsoleUi
 open Minimax
+open Player
 
 let mutable board = InitializeBoard  
-let mutable marker = " " 
 
-let CheckForWin () = 
+let CheckForWin marker = 
     if(GameWon (board) marker = true) then  
         PrintBoard board
         WinPrompt ()
         ExitGame ()
 
-let GetHumanMove () = 
-    let mutable humanMove = Console.ReadLine() |> int
-    humanMove
+let CheckForDraw() = 
+    if(GetListOfMoves(board).Count = 0) then
+        DrawGamePrompt()
+        ExitGame()
 
 let GenerateRandomMove (board) = 
     let rnd = System.Random()
@@ -23,25 +23,10 @@ let GenerateRandomMove (board) =
     let mutable computerMove = moves.[rnd.Next(moves.Count)]
     computerMove
 
-let HumanPlayerTurn() = 
-    MovePrompt ()
-    marker <- "X"
-    let mutable humanMove = GetHumanMove() 
-    if (IsAvailablePosition (board) humanMove = true) then
-        ModifyBoard (board) humanMove marker|> ignore
-    else 
-        invalidMovePrompt ()
-        humanMove <- Console.ReadLine() |> int
-    CheckForWin()
-    PrintBoard board
-
-let ComputerPlayerTurn() =  
-    MovePrompt ()
-    marker <- "O" 
-    let mutable computerMove = MakeBestMove(board) 
-    if (IsAvailablePosition (board) computerMove = true) then
-        ModifyBoard(board) computerMove marker |> ignore
-    else 
-        board |> ignore 
-    CheckForWin()
+let PlayerMakesMove (currentPlayer) = 
+    let mutable marker = (currentPlayer:>IPlayer).Marker
+    let mutable move = (currentPlayer:>IPlayer).GetMove(board)
+    ModifyBoard (board) move marker|> ignore
+    CheckForWin(marker)
+    CheckForDraw()
     PrintBoard board

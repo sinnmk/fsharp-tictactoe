@@ -4,23 +4,23 @@ open System
 open Board
 open ConsoleUi
 open Game
-open Minimax
+open Player
 
 [<EntryPoint>]
 
 let main args =
     GameMenu |> ignore
     let mutable gameOver = IsBoardTerminal board
-    let mutable turnsPlayed = 0
+    PrintBoard(board)
+    let humanPlayer = new HumanPlayer()
+    let computerPlayer = new ComputerPlayer()
+    let mutable isHumansTurn = true
     while (gameOver = false) do 
-        HumanPlayerTurn()
-        turnsPlayed <- turnsPlayed + 1
-        if turnsPlayed <= 8 then
-            ComputerPlayerTurn()
-            turnsPlayed <- turnsPlayed + 1
-        else 
-            DrawGamePrompt()            
-            ExitGame()
+        if(isHumansTurn) then
+            PlayerMakesMove(humanPlayer)
+        else
+            PlayerMakesMove(computerPlayer)
+        isHumansTurn <- not isHumansTurn
 
     Console.ReadKey() |> ignore
     0 

@@ -30,6 +30,9 @@ let invalidMovePrompt () =
 let WinPrompt () = 
     printfn "Winner!"
 
+let DrawPrompt() = 
+    printfn "This game is a draw!"
+
 let ExitGame () = 
     System.Threading.Thread.Sleep(1000)
     Environment.Exit(-1)
@@ -42,3 +45,7 @@ let PrintBoard board =
     |> Seq.map (fun s -> s + "\n")
     |> join "+===+===+===+\n"
     |> printfn "%s"
+
+let GetHumanMove () = 
+    let mutable humanMove = Console.ReadLine() |> int
+    humanMove
