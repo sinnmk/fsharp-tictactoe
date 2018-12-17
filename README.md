@@ -1,4 +1,4 @@
 # fsharp-tictactoe
 Apprentice Project: Tic Tac Toe in F# 
-Basic implementation of Tic Tac Toe in F# using functional and imperative patterns.
-Working on implmentation of a basic AI with Minimax. Currently, the computer plays only a randomly generated move.
+
+Computer is made with using Minimax to make the game "unbeatable", meaning the game will always either be a loss for human or a draw when the computer is playing verse a human. 
